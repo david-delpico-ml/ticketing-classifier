@@ -25,15 +25,14 @@ def plot_validation_history(history, string):
     except FileNotFoundError:
         pass
 
-    val_key = 'val_' + string
-    val_history = history.history[val_key]
+    val_history = history.history[string]
     plt.plot(val_history)
     plt.xlabel("Epochs")
-    plt.ylabel(val_key)
+    plt.ylabel(string)
     if label_names and np.ndim(val_history[0]) > 0 and len(val_history[0]) == len(label_names):
         plt.legend(label_names)
     else:
-        plt.legend([val_key])
+        plt.legend([string])
     plt.show()
 
 def plot_confusion_matrix(test_dataset, model):
@@ -43,8 +42,12 @@ def plot_confusion_matrix(test_dataset, model):
 
     for batch in test_dataset:
         X_batch, y_batch = batch
-        preds = model.predict(X_batch)
-        y_true.extend(y_batch.numpy())
+        preds = model.predict(X_batch, verbose=0)
+        # If y_batch is one-hot encoded, convert to class indices
+        if len(y_batch.shape) > 1 and y_batch.shape[1] > 1:
+            y_true.extend(np.argmax(y_batch.numpy(), axis=1))
+        else:
+            y_true.extend(y_batch.numpy())
         y_pred.extend(np.argmax(preds, axis=1))
 
     cm = confusion_matrix(y_true, y_pred)
