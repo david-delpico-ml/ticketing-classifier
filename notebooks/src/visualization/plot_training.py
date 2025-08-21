@@ -30,9 +30,9 @@ def plot_validation_history(history, string):
     plt.xlabel("Epochs")
     plt.ylabel(string)
     if label_names and np.ndim(val_history[0]) > 0 and len(val_history[0]) == len(label_names):
-        plt.legend(label_names)
+        plt.legend(label_names, bbox_to_anchor=(1.05, 1), loc='upper left')
     else:
-        plt.legend([string])
+        plt.legend([string], bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.show()
 
 def plot_confusion_matrix(test_dataset, model):
