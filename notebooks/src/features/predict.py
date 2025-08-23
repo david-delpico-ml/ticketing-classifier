@@ -4,15 +4,15 @@ import os
 
 # Load the best performing model
 current_dir = os.getcwd()
-best_model = tf.keras.models.load_model(os.path.join(current_dir, '..', 'models', 'best_model.keras'))
+best_model = tf.keras.models.load_model(os.path.join(current_dir, '..', 'model', 'best_model.keras'))
 
 # Load vocabulary
 vectorize_layer = tf.keras.layers.TextVectorization()
-vocab_file = os.path.join(current_dir, '..', 'models')
+vocab_file = os.path.join(current_dir, '..', 'model')
 vectorize_layer.load_assets(vocab_file)
 
 # Load label mapping
-data_dir = os.path.join(os.getcwd(), '..', 'data', 'processed')
+data_dir = os.path.join(os.getcwd(), '..', 'model')
 label_mapping = pd.read_csv(os.path.join(data_dir, 'label_mapping.csv'))
 
 def predict(text):
