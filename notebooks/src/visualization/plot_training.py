@@ -4,7 +4,6 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
-
 def plot_training_history(history, string):
     plt.plot(history.history[string])
     plt.plot(history.history['val_' + string])
@@ -39,6 +38,7 @@ def plot_confusion_matrix(test_dataset, model):
     # Get true labels and predictions from the test dataset
     y_true = []
     y_pred = []
+    x_text = []
 
     for batch in test_dataset:
         X_batch, y_batch = batch
@@ -49,18 +49,19 @@ def plot_confusion_matrix(test_dataset, model):
         else:
             y_true.extend(y_batch.numpy())
         y_pred.extend(np.argmax(preds, axis=1))
+        x_text.extend(X_batch.numpy())
 
-    cm = confusion_matrix(y_true, y_pred)
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm)
-    disp.plot(cmap='Blues')
-    # Use the labels from label_mapping.csv if available in x and y axis
-    try:
-        label_mapping_path = os.path.join(os.getcwd(), '..', 'data/processed', 'label_mapping.csv')
-        label_mapping = pd.read_csv(label_mapping_path)
-        plt.xticks(ticks=np.arange(len(label_mapping)), labels=label_mapping['label'], rotation=90)
-        plt.yticks(ticks=np.arange(len(label_mapping)), labels=label_mapping['label'])
-    except FileNotFoundError:
-        print("Label mapping file not found.")
+    # Load label mapping
+    label_mapping_path = os.path.join(os.getcwd(), '..', 'data/processed', 'label_mapping.csv')
+    label_mapping = pd.read_csv(label_mapping_path)
+
+    cm = confusion_matrix(y_true, y_pred, normalize='true')*100
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=label_mapping['label'])
+    disp.plot(cmap='Blues', values_format='.0f', xticks_rotation=90)
 
     plt.title("Confusion Matrix")
     plt.show()
+
+    dataset_pred = pd.DataFrame({'x_text':x_text, 'y_pred':y_pred, 'y_true':y_true})
+
+    return dataset_pred
