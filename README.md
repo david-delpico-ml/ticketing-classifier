@@ -49,7 +49,7 @@ Starting collecting the data in the ticketing software. The field of interest ar
 All the data is provided by the ticketing software in **CSV format**. All the sensitive data is filtered by inside the software request and just "Observation" and "Category" fields are used in this project. **The dataset contains incident descriptions written in Spanish** by hospital staff.
 
 ### 🔬 [Data Exploration (EDA)](notebooks/1_data_exploration.ipynb)
-In this stage it's visualized how the data is stored in the csv file and decide what can and cannot be useful for the model. This will help us decide how to proceed in the subsequent stages.
+This stage is comprised of a visualization of how the data is stored in the csv file and decides what can and cannot be useful for the model. This will help us decide how to proceed in the subsequent stages.
 
 ![📊 Word Cloud of vocabulary](notebooks/src/img/exploration.png)
 
@@ -58,7 +58,7 @@ In this stage it's visualized how the data is stored in the csv file and decide 
 ## ⚙️ Methodology
 
 ### 🧹 [Data Preprocessing](notebooks/2_data_preprocessing.ipynb)
-Prepare the data to be fed to the training stage, eliminating outliers, grouping small classes, cleaning the data if necessary, split into training and test dataset, vectorization and creating batches.
+The data is prepared to be fed into the training stage, eliminating outliers, grouping small classes, cleaning the data if necessary, split into training and test dataset, vectorization and creating batches.
 
 ![📈 Boxplot text size per class](notebooks/src/img/preprocessing.png)
 
