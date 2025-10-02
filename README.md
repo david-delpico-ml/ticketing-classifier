@@ -193,7 +193,7 @@ Detailed Classification Report:
 ### 🚀 [Model Deployment](https://huggingface.co/spaces/david-delpico-ml/ticketing)
 The final model is deployed using **Gradio** in [🤗 HuggingFace](https://huggingface.co/spaces/david-delpico-ml/ticketing)
 
-![🖥️ Screenshot HuggingFace interface](notebooks/src/img/huggingface.png)
+![🖥️ Screenshot HuggingFace interface](notebooks/src/img/huggingface.png)(https://huggingface.co/spaces/david-delpico-ml/ticketing)
 
 ---
 
